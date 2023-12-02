@@ -4,7 +4,7 @@ end
 
 if game.PlaceId ~= 920587237 then return end
 local Player = game.Players.LocalPlayer
-local VI = game.VirtualInputManager
+local VI = game:GetService("VirtualInputManager")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local NewsAppConnection
 local DialogConnection
