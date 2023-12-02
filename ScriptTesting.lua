@@ -4,7 +4,7 @@ end
 
 if game.PlaceId ~= 920587237 then return end
 local Player = game.Players.LocalPlayer
-local UserInput = game.VirtualInputManager
+local VI = game.VirtualInputManager
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local NewsAppConnection
 local DialogConnection
@@ -63,9 +63,9 @@ NewsAppConnection = Player.PlayerGui.NewsApp:GetPropertyChangedSignal("Enabled")
     if Player.PlayerGui.NewsApp.Enabled then
         task.wait()
         local AbsChat = Player.PlayerGui.NewsApp.EnclosingFrame.MainFrame.Contents.PlayButton
-        UserInput:SendMouseButtonEvent(AbsChat.AbsolutePosition.X + 1, AbsChat.AbsolutePosition.Y + 1, 0, true, game, 1)
+        VI:SendMouseButtonEvent(AbsChat.AbsolutePosition.X + 1, AbsChat.AbsolutePosition.Y + 1, 0, true, game, 1)
         task.wait()
-        UserInput:SendMouseButtonEvent(AbsChat.AbsolutePosition.X + 1, AbsChat.AbsolutePosition.Y + 1, 0, false, game, 1)
+        VI:SendMouseButtonEvent(AbsChat.AbsolutePosition.X + 1, AbsChat.AbsolutePosition.Y + 1, 0, false, game, 1)
         task.wait()
         -- firesignal(Player.PlayerGui.NewsApp.EnclosingFrame.MainFrame.Contents.PlayButton.MouseButton1Click)
         NewsAppConnection:Disconnect()
