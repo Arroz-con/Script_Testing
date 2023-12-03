@@ -62,12 +62,9 @@ end
 NewsAppConnection = Player.PlayerGui.NewsApp:GetPropertyChangedSignal("Enabled"):Connect(function()
     if Player.PlayerGui.NewsApp.Enabled then
         task.wait()
-        local AbsPlay = Player.PlayerGui.NewsApp.EnclosingFrame.MainFrame.Contents.PlayButton
-        task.wait()
-        VI:SendMouseButtonEvent(AbsPlay.AbsolutePosition.X + 60, AbsPlay.AbsolutePosition.Y + 80, 0, true, game, 1)
-        task.wait()
-        VI:SendMouseButtonEvent(AbsPlay.AbsolutePosition.X + 60, AbsPlay.AbsolutePosition.Y + 80, 0, false, game, 1)
-        task.wait()
+        for i, v in getconnections(Player.PlayerGui:FindFirstChild("PlayButton",true).MouseButton1Click) do
+            v:Fire()
+        end
         -- firesignal(Player.PlayerGui.NewsApp.EnclosingFrame.MainFrame.Contents.PlayButton.MouseButton1Click)
         NewsAppConnection:Disconnect()
     end
