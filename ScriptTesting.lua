@@ -1597,7 +1597,7 @@ local function autoFarm()
     CompleteBabyAilments()
     CompletePetAilments()
     task.wait(2)
-    for i=1, 30 do
+    for i=1, 31 do
         game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("WinterEventAPI/AdventCalendarTryTakeReward"):InvokeServer(i)
         task.wait(.1)
     end
