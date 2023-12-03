@@ -1204,18 +1204,35 @@ local function TeleportMainMap()
     subToHouse()
 end
 
---game:GetService("Workspace").Interiors.FireDimension.Doors.WarpDoor.WorkingParts.TouchToEnter
-
-local function TeleportFireDimension()
+local function TeleportWinterShop()
+    Bypass("CollisionsClient").set_collidable(false)
     Player.Character:WaitForChild("HumanoidRootPart").Anchored = true
-    SetLocationFunc("FireDimension", "MainDoor", {})
+    SetLocationFunc("Winter2023Shop", "MainDoor2", {})
     game.Workspace.Interiors:WaitForChild(tostring(game.Workspace.Interiors:FindFirstChildWhichIsA("Model")))
-    Player.Character.PrimaryPart.CFrame = game.Workspace.Interiors:WaitForChild(tostring(game.Workspace.Interiors:FindFirstChildWhichIsA("Model"))).Doors.WarpDoor.WorkingParts.TouchToEnter.CFrame + Vector3.new(math.random(1, 10), 10, math.random(1, 10))
+    Player.Character.PrimaryPart.CFrame = game.Workspace.Interiors:FindFirstChild(tostring(game.Workspace.Interiors:FindFirstChildWhichIsA("Model"))).PrimaryPart.CFrame + Vector3.new(math.random(1, 20), 10, math.random(1, 20))
     Player.Character:WaitForChild("HumanoidRootPart").Anchored = false
     Player.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Landed)
     Player.Character.Humanoid.WalkSpeed = 0
     task.wait(2)
 end
+
+local function TeleportPetRescue()
+    Player.Character.PrimaryPart.CFrame = game.Workspace.Interiors:FindFirstChild(tostring(game.Workspace.Interiors:FindFirstChildWhichIsA("Model"))).PetRescue.Spawn.CFrame + Vector3.new(0, 10, 0)
+    Player.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Landed)
+    Player.Character.Humanoid.WalkSpeed = 0
+end
+
+--game:GetService("Workspace").Interiors.FireDimension.Doors.WarpDoor.WorkingParts.TouchToEnter
+-- local function TeleportFireDimension()
+--     Player.Character:WaitForChild("HumanoidRootPart").Anchored = true
+--     SetLocationFunc("FireDimension", "MainDoor", {})
+--     game.Workspace.Interiors:WaitForChild(tostring(game.Workspace.Interiors:FindFirstChildWhichIsA("Model")))
+--     Player.Character.PrimaryPart.CFrame = game.Workspace.Interiors:WaitForChild(tostring(game.Workspace.Interiors:FindFirstChildWhichIsA("Model"))).Doors.WarpDoor.WorkingParts.TouchToEnter.CFrame + Vector3.new(math.random(1, 10), 10, math.random(1, 10))
+--     Player.Character:WaitForChild("HumanoidRootPart").Anchored = false
+--     Player.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Landed)
+--     Player.Character.Humanoid.WalkSpeed = 0
+--     task.wait(2)
+-- end
 
 local function TeleportCampSite()
     game.Workspace.Interiors:WaitForChild(tostring(game.Workspace.Interiors:FindFirstChildWhichIsA("Model")))
@@ -1236,6 +1253,7 @@ local function TeleportPlayGround()
     Player.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Landed)
     Player.Character.Humanoid.WalkSpeed = 0
 end
+
 
 ------------------------------- Auto Farming ------------------------
 
@@ -1489,7 +1507,9 @@ local function autoFarm()
                     NormalDialogChild.Info.TextLabel:GetPropertyChangedSignal("Text"):Connect(function()
                         if Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info.TextLabel.Text:match("Pet Rescue is starting soon!") then
                             FireButton("Yes")
-                            Bypass("RouterClient").get("MinigameAPI/AttemptJoin"):FireServer("pet_rescue", true)
+                            TeleportWinterShop()
+                            TeleportPetRescue()
+                            -- Bypass("RouterClient").get("MinigameAPI/AttemptJoin"):FireServer("pet_rescue", true)
                         elseif Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info.TextLabel.Text:match("Chickatrice Says!") then
                             FireButton("Yes")
 
@@ -1508,9 +1528,10 @@ local function autoFarm()
             Player.PlayerGui.DialogApp.Dialog.NormalDialog:WaitForChild("Info")
             Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info:WaitForChild("TextLabel")
             Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info.TextLabel:GetPropertyChangedSignal("Text"):Connect(function()
-                if Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info.TextLabel.Text:match("Tile Skip is starting soon!") then
+                if Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info.TextLabel.Text:match("Pet Rescue is starting soon!") then
                     FireButton("Yes")
-                   
+                    TeleportWinterShop()
+                    TeleportPetRescue()
                 elseif Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info.TextLabel.Text:match("Chickatrice Says!") then
                     FireButton("Yes")
 
