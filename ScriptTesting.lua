@@ -1491,7 +1491,8 @@ local function autoFarm()
                     task.wait(.5)
                 until Player.PlayerGui.MinigameInGameApp.Body.Left.Container.ValueLabel.Text:match("GAME OVER")
                 task.wait(20)
-                -- TeleportMainMap()
+                TeleportMainMap()
+                
             elseif Player.PlayerGui.MinigameInGameApp.Body.Middle.Container.TitleLabel.Text:match("CHICKATRICE SAYS") then
                 task.wait()
                 
