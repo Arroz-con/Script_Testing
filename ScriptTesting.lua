@@ -1315,12 +1315,14 @@ end
 --         task.wait(1)
 --     end)
 -- end
-
+local GingerbreadFolder = workspace.Interiors["MainMap/Snow"]
+local isCollecting = false
 
 local function autoFarm()
     if not getgenv().auto_farm then return end
     TeleportMainMap()
     local function CompletePetAilments()
+        if isCollecting then return end
         if Bypass("ClientData").get("pet_char_wrapper") == nil then return end
         if #Bypass("ClientData").get("pet_char_wrapper")["ailments_monitor"]["ailments"] == 0 then
             return 
@@ -1554,6 +1556,32 @@ local function autoFarm()
             end
         end
     end)
+
+
+    local function getGingerbreadMain()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Interiors["MainMap/Snow"].RaceScriptable.Collection.Part.CFrame
+        task.wait(5)
+
+        local function getGingerbread()
+            isCollecting = true
+            for _, v in GingerbreadFolder:GetChildren() do
+                if v.Name == "GingerbreadRig" and v:FindFirstChild("ParticleHolder") then
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.ParticleHolder.CFrame
+                    task.wait(1)
+                end
+            end
+
+            return false
+        end
+
+        getGingerbread()
+
+        task.wait(2)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Interiors["MainMap/Snow"].RaceScriptable.Collection.Part.CFrame
+
+        isCollecting = false
+    end
+
 
     --// Code below runs once when auto farm is enabled
     if SETTINGS.PET_AUTO_FUSION then
