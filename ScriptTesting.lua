@@ -1472,7 +1472,7 @@ local function autoFarm()
         --         Player.Character.PrimaryPart.CFrame = workspace.Interiors.DodgeMinigameLobby.Minigame.JoinZone.Collider.CFrame + Vector3.new(0,-14,0)
 
         --     end
-        -- end
+        end
     end)
 
 
