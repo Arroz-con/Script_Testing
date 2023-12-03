@@ -1318,6 +1318,32 @@ end
 
 local isCollecting = false
 
+local function getGingerbreadMain()
+    local GingerbreadFolder = workspace.Interiors["MainMap/Snow"]
+    
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Interiors["MainMap/Snow"].RaceScriptable.Collection.Part.CFrame
+    task.wait(5)
+
+    local function getGingerbread()
+        isCollecting = true
+        for _, v in GingerbreadFolder:GetChildren() do
+            if v.Name == "GingerbreadRig" and v:FindFirstChild("ParticleHolder") then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.ParticleHolder.CFrame
+                task.wait(1)
+            end
+        end
+
+        return false
+    end
+
+    getGingerbread()
+
+    task.wait(2)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Interiors["MainMap/Snow"].RaceScriptable.Collection.Part.CFrame
+
+    isCollecting = false
+end
+
 local function autoFarm()
     if not getgenv().auto_farm then return end
     TeleportMainMap()
@@ -1559,31 +1585,6 @@ local function autoFarm()
     end)
 
 
-    local function getGingerbreadMain()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Interiors["MainMap/Snow"].RaceScriptable.Collection.Part.CFrame
-        task.wait(5)
-
-        local function getGingerbread()
-            isCollecting = true
-            for _, v in GingerbreadFolder:GetChildren() do
-                if v.Name == "GingerbreadRig" and v:FindFirstChild("ParticleHolder") then
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.ParticleHolder.CFrame
-                    task.wait(1)
-                end
-            end
-
-            return false
-        end
-
-        getGingerbread()
-
-        task.wait(2)
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Interiors["MainMap/Snow"].RaceScriptable.Collection.Part.CFrame
-
-        isCollecting = false
-    end
-
-
     --// Code below runs once when auto farm is enabled
     if SETTINGS.PET_AUTO_FUSION then
         MakeNeon()
@@ -1597,7 +1598,6 @@ local function autoFarm()
     task.wait(2)
     setfpscap(SETTINGS.SET_FPS)
 
-    local GingerbreadFolder = workspace.Interiors["MainMap/Snow"]
 end
 
 
