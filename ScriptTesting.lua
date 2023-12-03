@@ -1476,8 +1476,6 @@ local function autoFarm()
     end)
 
 
-    
-
     --// Fires when inside the minigame
     Player.PlayerGui.MinigameInGameApp:GetPropertyChangedSignal("Enabled"):Connect(function()
         if Player.PlayerGui.MinigameInGameApp.Enabled then
@@ -1492,7 +1490,7 @@ local function autoFarm()
                 until Player.PlayerGui.MinigameInGameApp.Body.Left.Container.ValueLabel.Text:match("GAME OVER")
                 task.wait(20)
                 TeleportMainMap()
-                
+
             elseif Player.PlayerGui.MinigameInGameApp.Body.Middle.Container.TitleLabel.Text:match("CHICKATRICE SAYS") then
                 task.wait()
                 
@@ -1582,7 +1580,7 @@ local function autoFarm()
                 Player.Character.HumanoidRootPart.Anchored = false
                 -- RemoveGameOverButton()
                 Player.PlayerGui.MinigameRewardsApp.Body.Visible = false
-                TeleportMainMap()
+                -- TeleportMainMap()
             end
         end
     end)
