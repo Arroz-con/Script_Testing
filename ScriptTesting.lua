@@ -1457,22 +1457,8 @@ local function autoFarm()
         end
     end)
 
-    local function doHalloweenTitle()
-        local args = {
-            [1] = "TileSkipMinigameJoinZone",
-            [2] = "reached_goal"
-        }
-        
-        game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("MinigameAPI/MessageServer"):FireServer(unpack(args))        
-    end
+
     
-    local function doChickatriceSays()
-        Player.Character:WaitForChild("HumanoidRootPart").Anchored = true
-        -- local humanoidRootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
-        -- if humanoidRootPart then
-        --     humanoidRootPart.Anchored = true
-        -- end
-    end
 
     --// Fires when inside the minigame
     Player.PlayerGui.MinigameInGameApp:GetPropertyChangedSignal("Enabled"):Connect(function()
@@ -1483,17 +1469,17 @@ local function autoFarm()
             Player.PlayerGui.MinigameInGameApp.Body.Middle.Container:WaitForChild("TitleLabel")
             if Player.PlayerGui.MinigameInGameApp.Body.Middle.Container.TitleLabel.Text:match("TILE SKIP") then
                 task.wait(5)
-                doHalloweenTitle()
+               
             elseif Player.PlayerGui.MinigameInGameApp.Body.Middle.Container.TitleLabel.Text:match("CHICKATRICE SAYS") then
                 task.wait()
-                doChickatriceSays()
+                
             elseif Player.PlayerGui.MinigameInGameApp.Body.Middle.Container.TitleLabel.Text:match("SPOOKY SHUFFLE") then
                 task.wait()
             end
         end 
     end)
     
-    
+    -- fires when it ask you if you want to join minigame
     Player.PlayerGui.DialogApp.Dialog.ChildAdded:Connect(function(NormalDialogChild)
         if NormalDialogChild.Name == "NormalDialog" then
             NormalDialogChild:GetPropertyChangedSignal("Visible"):Connect(function()
@@ -1501,9 +1487,9 @@ local function autoFarm()
                     NormalDialogChild:WaitForChild("Info")
                     NormalDialogChild.Info:WaitForChild("TextLabel")
                     NormalDialogChild.Info.TextLabel:GetPropertyChangedSignal("Text"):Connect(function()
-                        if Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info.TextLabel.Text:match("Tile Skip is starting soon!") then
+                        if Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info.TextLabel.Text:match("Pet Rescue is starting soon!") then
                             FireButton("Yes")
-                            
+                            Bypass("RouterClient").get("MinigameAPI/AttemptJoin"):FireServer("pet_rescue", true)
                         elseif Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info.TextLabel.Text:match("Chickatrice Says!") then
                             FireButton("Yes")
 
