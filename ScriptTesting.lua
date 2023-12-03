@@ -1315,7 +1315,7 @@ end
 --         task.wait(1)
 --     end)
 -- end
-local GingerbreadFolder = workspace.Interiors["MainMap/Snow"]
+
 local isCollecting = false
 
 local function autoFarm()
@@ -1596,7 +1596,7 @@ local function autoFarm()
     task.wait(2)
     setfpscap(SETTINGS.SET_FPS)
 
-    
+    local GingerbreadFolder = workspace.Interiors["MainMap/Snow"]
 end
 
 
