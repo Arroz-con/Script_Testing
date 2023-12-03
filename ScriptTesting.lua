@@ -1482,17 +1482,15 @@ local function autoFarm()
     Player.PlayerGui.MinigameInGameApp:GetPropertyChangedSignal("Enabled"):Connect(function()
         if Player.PlayerGui.MinigameInGameApp.Enabled then
             Player.PlayerGui.MinigameInGameApp:WaitForChild("Body")
-            Player.PlayerGui.MinigameInGameApp.Body:WaitForChild("Middle")
+            Player.PlayerGui.MinigameInGameApp.Body:WaitForChild("Left")
             Player.PlayerGui.MinigameInGameApp.Body.Middle:WaitForChild("Container")
-            Player.PlayerGui.MinigameInGameApp.Body.Middle.Container:WaitForChild("TitleLabel")
-            if Player.PlayerGui.MinigameInGameApp.Body.Middle.Container.TitleLabel.Text:match("TEAM SABERTOOTH") then
-                task.wait(5)
-                print("ran")
-                for i = 1, 60 do
+            Player.PlayerGui.MinigameInGameApp.Body.Middle.Container:WaitForChild("ValueLabel")
+            if not Player.PlayerGui.MinigameInGameApp.Body.Left.Container.ValueLabel.Text:match("GAME OVER") then
+                repeat
                     game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("WinterEventAPI/PetRescueTryUsePickaxe"):InvokeServer()
-                    task.wait(.5)
-                end
-    
+                    task.wait(1)
+                until Player.PlayerGui.MinigameInGameApp.Body.Left.Container.ValueLabel.Text:match("GAME OVER")
+            
             elseif Player.PlayerGui.MinigameInGameApp.Body.Middle.Container.TitleLabel.Text:match("CHICKATRICE SAYS") then
                 task.wait()
                 
