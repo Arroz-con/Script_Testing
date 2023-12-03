@@ -1209,7 +1209,7 @@ local function TeleportWinterShop()
     Player.Character:WaitForChild("HumanoidRootPart").Anchored = true
     SetLocationFunc("Winter2023Shop", "MainDoor2", {})
     game.Workspace.Interiors:WaitForChild(tostring(game.Workspace.Interiors:FindFirstChildWhichIsA("Model")))
-    Player.Character.PrimaryPart.CFrame = game.Workspace.Interiors:FindFirstChild(tostring(game.Workspace.Interiors:FindFirstChildWhichIsA("Model"))).PrimaryPart.CFrame + Vector3.new(10, 5, 0)
+    Player.Character.PrimaryPart.CFrame = game.Workspace.Interiors:FindFirstChild(tostring(game.Workspace.Interiors:FindFirstChildWhichIsA("Model"))).Event.BuyCurrency.PrimaryPart.CFrame + Vector3.new(10, 5, 10)
     Player.Character:WaitForChild("HumanoidRootPart").Anchored = false
     Player.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Landed)
     Player.Character.Humanoid.WalkSpeed = 0
@@ -1488,7 +1488,7 @@ local function autoFarm()
             if not Player.PlayerGui.MinigameInGameApp.Body.Left.Container.ValueLabel.Text:match("GAME OVER") then
                 repeat
                     game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("WinterEventAPI/PetRescueTryUsePickaxe"):InvokeServer()
-                    task.wait(1)
+                    task.wait(.5)
                 until Player.PlayerGui.MinigameInGameApp.Body.Left.Container.ValueLabel.Text:match("GAME OVER")
             
             elseif Player.PlayerGui.MinigameInGameApp.Body.Middle.Container.TitleLabel.Text:match("CHICKATRICE SAYS") then
