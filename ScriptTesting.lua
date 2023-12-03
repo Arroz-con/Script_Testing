@@ -62,7 +62,7 @@ end
 NewsAppConnection = Player.PlayerGui.NewsApp:GetPropertyChangedSignal("Enabled"):Connect(function()
     if Player.PlayerGui.NewsApp.Enabled then
         task.wait()
-        for i, v in getconnections(Player.PlayerGui:FindFirstChild("PlayButton",true).MouseButton1Click) do
+        for i, v in getconnections(Player.PlayerGui.NewsApp:FindFirstChild("PlayButton", true).MouseButton1Click) do
             v:Fire()
         end
         -- firesignal(Player.PlayerGui.NewsApp.EnclosingFrame.MainFrame.Contents.PlayButton.MouseButton1Click)
@@ -72,7 +72,10 @@ end)
 
 if Player.PlayerGui.NewsApp.Enabled then
     task.wait()
-    firesignal(Player.PlayerGui.NewsApp.EnclosingFrame.MainFrame.Contents.PlayButton.MouseButton1Click)
+    for i, v in getconnections(Player.PlayerGui.NewsApp:FindFirstChild("PlayButton", true).MouseButton1Click) do
+        v:Fire()
+    end
+    -- firesignal(Player.PlayerGui.NewsApp.EnclosingFrame.MainFrame.Contents.PlayButton.MouseButton1Click)
     NewsAppConnection:Disconnect()
 end
 
