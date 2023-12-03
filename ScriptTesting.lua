@@ -1485,9 +1485,13 @@ local function autoFarm()
             Player.PlayerGui.MinigameInGameApp.Body:WaitForChild("Middle")
             Player.PlayerGui.MinigameInGameApp.Body.Middle:WaitForChild("Container")
             Player.PlayerGui.MinigameInGameApp.Body.Middle.Container:WaitForChild("TitleLabel")
-            if Player.PlayerGui.MinigameInGameApp.Body.Middle.Container.TitleLabel.Text:match("TILE SKIP") then
+            if Player.PlayerGui.MinigameInGameApp.Body.Middle.Container.TitleLabel.Text:match("TEAM") then
                 task.wait(5)
-               
+                for i = 1, 60 do
+                    game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("WinterEventAPI/PetRescueTryUsePickaxe"):InvokeServer()
+                    task.wait(.5)
+                end
+    
             elseif Player.PlayerGui.MinigameInGameApp.Body.Middle.Container.TitleLabel.Text:match("CHICKATRICE SAYS") then
                 task.wait()
                 
