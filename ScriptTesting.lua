@@ -1328,6 +1328,7 @@ local function getGingerbreadMain()
         isCollecting = true
         for _, v in GingerbreadFolder:GetChildren() do
             if v.Name == "GingerbreadRig" and v:FindFirstChild("ParticleHolder") then
+                if v:FindFirstChild("GingerbreadMan").Transparency ~= 0 then continue end
                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.ParticleHolder.CFrame
                 task.wait(1)
             end
@@ -1339,8 +1340,9 @@ local function getGingerbreadMain()
     getGingerbread()
 
     task.wait(2)
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Interiors["MainMap/Snow"].RaceScriptable.Collection.Part.CFrame
+    -- game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Interiors["MainMap/Snow"].RaceScriptable.Collection.Part.CFrame
 
+    TeleportCampSite()
     isCollecting = false
 end
 
