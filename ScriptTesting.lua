@@ -1316,36 +1316,21 @@ end
 --     end)
 -- end
 
-local isCollecting = false
 
-local function getGingerbreadMain()
-    local GingerbreadFolder = workspace.Interiors["MainMap/Snow"]
-    
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Interiors["MainMap/Snow"].RaceScriptable.Collection.Part.CFrame
-    task.wait(5)
 
-    local function getGingerbread()
-        isCollecting = true
-        for _, v in GingerbreadFolder:GetChildren() do
-            if v.Name == "GingerbreadRig" and v:FindFirstChild("ParticleHolder") then
-                if v:FindFirstChild("GingerbreadMan").Transparency ~= 0 then continue end
-                Player.Character.Humanoid:MoveTo(v.ParticleHolder.CFrame.Position)
-                -- game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.ParticleHolder.CFrame
-                task.wait(1)
-            end
+local function getGingerbread()
+    local GingerbreadMarkers = ReplicatedStorage.Resources.IceSkating.GingerbreadMarkers
+    for _, v in GingerbreadMarkers:GetChildren() do
+        if v:IsA("BasePart") then
+            Bypass("RouterClient").get("WinterEventAPI/PickUpGingerbread"):InvokeServer(v.Name)
+            task.wait()
         end
-
-        return false
     end
-
-    getGingerbread()
-
-    task.wait(2)
-    -- game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Interiors["MainMap/Snow"].RaceScriptable.Collection.Part.CFrame
-
-    TeleportCampSite()
-    isCollecting = false
+    task.wait()
+    Bypass("RouterClient").get("WinterEventAPI/RedeemPendingGingerbread"):FireServer()
 end
+
+
 
 local function autoFarm()
     if not getgenv().auto_farm then return end
@@ -1354,7 +1339,7 @@ local function autoFarm()
         if isCollecting then return end
         if Bypass("ClientData").get("pet_char_wrapper") == nil then return end
         if #Bypass("ClientData").get("pet_char_wrapper")["ailments_monitor"]["ailments"] == 0 then
-            -- getGingerbreadMain()
+            getGingerbread()
             return 
         end
         for _, v in pairs(Bypass("ClientData").get("pet_char_wrapper")["ailments_monitor"]["ailments"]) do
