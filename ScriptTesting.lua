@@ -1329,7 +1329,8 @@ local function getGingerbreadMain()
         for _, v in GingerbreadFolder:GetChildren() do
             if v.Name == "GingerbreadRig" and v:FindFirstChild("ParticleHolder") then
                 if v:FindFirstChild("GingerbreadMan").Transparency ~= 0 then continue end
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.ParticleHolder.CFrame
+                Player.Character.Humanoid:MoveTo(v.ParticleHolder.CFrame.Position)
+                -- game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.ParticleHolder.CFrame
                 task.wait(1)
             end
         end
