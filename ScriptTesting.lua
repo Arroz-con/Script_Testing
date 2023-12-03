@@ -1596,7 +1596,12 @@ local function autoFarm()
     CompleteBabyAilments()
     CompletePetAilments()
     task.wait(2)
-    setfpscap(SETTINGS.SET_FPS)
+    for i=1, 30 do
+        game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("WinterEventAPI/AdventCalendarTryTakeReward"):InvokeServer(i)
+        task.wait(.1)
+    end
+    
+    --setfpscap(SETTINGS.SET_FPS)
 
 end
 
