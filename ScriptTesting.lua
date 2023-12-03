@@ -1217,7 +1217,7 @@ local function TeleportWinterShop()
 end
 
 local function TeleportPetRescue()
-    Player.Character.PrimaryPart.CFrame = game.Workspace.Interiors:FindFirstChild(tostring(game.Workspace.Interiors:FindFirstChildWhichIsA("Model"))).PetRescue.Spawn.CFrame + Vector3.new(0, 10, 0)
+    Player.Character.PrimaryPart.CFrame = game.Workspace.Interiors:FindFirstChild(tostring(game.Workspace.Interiors:FindFirstChildWhichIsA("Model"))).PetRescue.JoinZone.Collider.CFrame + Vector3.new(0, 10, 0)
     Player.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Landed)
     Player.Character.Humanoid.WalkSpeed = 0
 end
@@ -1523,6 +1523,7 @@ local function autoFarm()
         end
     end)
     
+
     Player.PlayerGui.DialogApp.Dialog.NormalDialog:GetPropertyChangedSignal("Visible"):Connect(function()
         if Player.PlayerGui.DialogApp.Dialog.NormalDialog.Visible then
             Player.PlayerGui.DialogApp.Dialog.NormalDialog:WaitForChild("Info")
