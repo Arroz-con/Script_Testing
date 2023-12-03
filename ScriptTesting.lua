@@ -1325,6 +1325,7 @@ local function autoFarm()
         if isCollecting then return end
         if Bypass("ClientData").get("pet_char_wrapper") == nil then return end
         if #Bypass("ClientData").get("pet_char_wrapper")["ailments_monitor"]["ailments"] == 0 then
+            getGingerbreadMain()
             return 
         end
         for _, v in pairs(Bypass("ClientData").get("pet_char_wrapper")["ailments_monitor"]["ailments"]) do
