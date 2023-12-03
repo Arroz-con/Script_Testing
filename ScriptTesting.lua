@@ -1342,6 +1342,8 @@ local function getGingerbreadMain()
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Interiors["MainMap/Snow"].RaceScriptable.Collection.Part.CFrame
 
     isCollecting = false
+    task.wait(1)
+    CompletePetAilments()
 end
 
 local function autoFarm()
