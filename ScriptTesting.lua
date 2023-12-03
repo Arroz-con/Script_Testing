@@ -1461,18 +1461,18 @@ local function autoFarm()
                 SwitchOutFullyGrown()
             end
 
-        elseif Player.PlayerGui.HintApp.TextLabel.Text:match("You have left the queue") then
-            if workspace.Interiors:FindFirstChild("TileSkipMinigameLobby") then
-                Player.Character.PrimaryPart.CFrame = workspace.Interiors.TileSkipMinigameLobby.JoinZone.Collider.CFrame + Vector3.new(0,-15,0)
+        -- elseif Player.PlayerGui.HintApp.TextLabel.Text:match("You have left the queue") then
+        --     if workspace.Interiors:FindFirstChild("TileSkipMinigameLobby") then
+        --         Player.Character.PrimaryPart.CFrame = workspace.Interiors.TileSkipMinigameLobby.JoinZone.Collider.CFrame + Vector3.new(0,-15,0)
             
-            elseif workspace.Interiors:FindFirstChild("ChickatriceMinigame") then
-                Player.Character.PrimaryPart.CFrame = workspace.Interiors.ChickatriceMinigame.Minigame.JoinZone.Collider.CFrame + Vector3.new(0,-14,0)
+        --     elseif workspace.Interiors:FindFirstChild("ChickatriceMinigame") then
+        --         Player.Character.PrimaryPart.CFrame = workspace.Interiors.ChickatriceMinigame.Minigame.JoinZone.Collider.CFrame + Vector3.new(0,-14,0)
             
-            elseif workspace.Interiors:FindFirstChild("DodgeMinigameLobby") then
-                Player.Character.PrimaryPart.CFrame = workspace.Interiors.DodgeMinigameLobby.Minigame.JoinZone.Collider.CFrame + Vector3.new(0,-14,0)
+        --     elseif workspace.Interiors:FindFirstChild("DodgeMinigameLobby") then
+        --         Player.Character.PrimaryPart.CFrame = workspace.Interiors.DodgeMinigameLobby.Minigame.JoinZone.Collider.CFrame + Vector3.new(0,-14,0)
 
-            end
-        end
+        --     end
+        -- end
     end)
 
 
@@ -1490,7 +1490,8 @@ local function autoFarm()
                     game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("WinterEventAPI/PetRescueTryUsePickaxe"):InvokeServer()
                     task.wait(.5)
                 until Player.PlayerGui.MinigameInGameApp.Body.Left.Container.ValueLabel.Text:match("GAME OVER")
-            
+                task.wait(20)
+                TeleportMainMap()
             elseif Player.PlayerGui.MinigameInGameApp.Body.Middle.Container.TitleLabel.Text:match("CHICKATRICE SAYS") then
                 task.wait()
                 
