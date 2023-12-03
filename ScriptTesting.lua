@@ -1209,7 +1209,7 @@ local function TeleportWinterShop()
     Player.Character:WaitForChild("HumanoidRootPart").Anchored = true
     SetLocationFunc("Winter2023Shop", "MainDoor2", {})
     game.Workspace.Interiors:WaitForChild(tostring(game.Workspace.Interiors:FindFirstChildWhichIsA("Model")))
-    Player.Character.PrimaryPart.CFrame = game.Workspace.Interiors:FindFirstChild(tostring(game.Workspace.Interiors:FindFirstChildWhichIsA("Model"))).PrimaryPart.CFrame + Vector3.new(0, 10, 0)
+    Player.Character.PrimaryPart.CFrame = game.Workspace.Interiors:FindFirstChild(tostring(game.Workspace.Interiors:FindFirstChildWhichIsA("Model"))).PrimaryPart.CFrame + Vector3.new(0, 5, 0)
     Player.Character:WaitForChild("HumanoidRootPart").Anchored = false
     Player.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Landed)
     Player.Character.Humanoid.WalkSpeed = 0
@@ -1217,7 +1217,7 @@ local function TeleportWinterShop()
 end
 
 local function TeleportPetRescue()
-    Player.Character.PrimaryPart.CFrame = game.Workspace.Interiors:FindFirstChild(tostring(game.Workspace.Interiors:FindFirstChildWhichIsA("Model"))).PetRescue.JoinZone.Collider.CFrame + Vector3.new(0, 10, 0)
+    Player.Character.PrimaryPart.CFrame = game.Workspace.Interiors:FindFirstChild(tostring(game.Workspace.Interiors:FindFirstChildWhichIsA("Model"))).PetRescue.JoinZone.Collider.CFrame + Vector3.new(0, 5, 0)
     Player.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Landed)
     Player.Character.Humanoid.WalkSpeed = 0
 end
@@ -1537,6 +1537,7 @@ local function autoFarm()
                 if Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info.TextLabel.Text:match("Pet Rescue is starting soon!") then
                     FireButton("Yes")
                     TeleportWinterShop()
+                    task.wait(2)
                     TeleportPetRescue()
                 elseif Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info.TextLabel.Text:match("Chickatrice Says!") then
                     FireButton("Yes")
