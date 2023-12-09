@@ -1,3 +1,56 @@
+getgenv().SETTINGS = {
+    PET_TO_BUY = "halloween_2023_dire_stag", -- add pet or egg to buy when bot has no pets/egg left to level
+
+    FOCUS_FARM_AGE_POTION = false,  -- if true, this will only farm 1 pet an keep aging to get aging potions
+
+    ENABLE_AUTO_FARM = true,
+    SET_FPS = 3,
+    PET_NEON_PRIORITY = true,
+    PET_AUTO_FUSION = true,
+
+    ENABLE_TRADE_COLLECTOR = true,
+    TRADE_COLLECTOR_NAME = "dudemyblox", -- your account username (case sensitive) that will collect the pets.
+    TRADE_LIST = {
+        GIFTS_TABLE = {
+            "rgb_reward_box",
+            "halloween_2023_scarecrow_box",
+            "halloween_2022_wolf_box",
+            "summerfest_2023_hermit_crab_box",
+            "winter_2021_walrus_box",
+            "winter_2022_pony_box",
+            "lny_2023_moon_bear_box",
+            "springfest_2023_duckling_box",
+        },
+    
+        TOYS_TABLE = {
+            "paint_2023_colored_hair_spray_sealer",
+        },
+
+        -- the pets in here will be traded no matter what age they are
+        PETS_TABLE = { 
+            "lures_2023_blazing_lion",
+            "golden_egg",
+            "diamond_egg",
+            "mythic_egg",
+            "seasia_2023_egg",
+            "urban_2023_egg",
+            "japan_2022_egg",
+            "woodland_2022_woodland_egg",
+            "danger_2023_egg",
+            "ocean_egg",
+            "fossil_egg",
+            "april_fools_2023_fool_egg",
+        },
+    },
+
+    HATCH_EGG_PRIORITY = false,
+    HATCH_EGG_PRIORITY_NAMES = {"danger_2023_egg"},
+    
+    PET_ONLY_PRIORITY = true,
+    PET_ONLY_PRIORITY_NAMES = {"halloween_2023_dire_stag"},
+}
+
+
 if not game:IsLoaded() then
     game.Loaded:Wait()
 end
@@ -1217,7 +1270,9 @@ local function TeleportWinterShop()
 end
 
 local function TeleportPetRescue()
-    Player.Character.PrimaryPart.CFrame = game.Workspace.Interiors:FindFirstChild(tostring(game.Workspace.Interiors:FindFirstChildWhichIsA("Model"))).PetRescue.JoinZone.Collider.CFrame + Vector3.new(0, 5, 0)
+    Player.Character:WaitForChild("HumanoidRootPart").Anchored = true
+    Player.Character.PrimaryPart.CFrame = game.Workspace.Interiors:FindFirstChild(tostring(game.Workspace.Interiors:FindFirstChildWhichIsA("Model"))).PetRescue.JoinZone.Collider.CFrame + Vector3.new(0, -14, 0)
+    Player.Character:WaitForChild("HumanoidRootPart").Anchored = false
     Player.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Landed)
     Player.Character.Humanoid.WalkSpeed = 0
 end
@@ -1235,21 +1290,30 @@ end
 -- end
 
 local function TeleportCampSite()
+    Player.Character:WaitForChild("HumanoidRootPart").Anchored = true
+    SetLocationFunc("MainMap", "Neighborhood/MainDoor", {})
     game.Workspace.Interiors:WaitForChild(tostring(game.Workspace.Interiors:FindFirstChildWhichIsA("Model")))
     Player.Character.PrimaryPart.CFrame = game.Workspace.Interiors:WaitForChild(tostring(game.Workspace.Interiors:FindFirstChildWhichIsA("Model"))).Static.Campsite.MarshmallowChair.VintageChair.Union.CFrame + Vector3.new(math.random(1, 20), 10, math.random(1, 20))
+    Player.Character:WaitForChild("HumanoidRootPart").Anchored = false
     Player.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Landed)
     Player.Character.Humanoid.WalkSpeed = 0
 end
 
 local function TeleportPoolParty()
+    Player.Character:WaitForChild("HumanoidRootPart").Anchored = true
+    SetLocationFunc("MainMap", "Neighborhood/MainDoor", {})
     game.Workspace.Interiors:WaitForChild(tostring(game.Workspace.Interiors:FindFirstChildWhichIsA("Model")))
     Player.Character.PrimaryPart.CFrame = game.Workspace.Interiors:WaitForChild(tostring(game.Workspace.Interiors:FindFirstChildWhichIsA("Model"))).Static.PoolArea.PoolOrigin.CFrame + Vector3.new(math.random(1, 20), 10, math.random(1, 20))
+    Player.Character:WaitForChild("HumanoidRootPart").Anchored = false
     Player.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Landed)
     Player.Character.Humanoid.WalkSpeed = 0
 end
 
 local function TeleportPlayGround()
+    Player.Character:WaitForChild("HumanoidRootPart").Anchored = true
+    SetLocationFunc("MainMap", "Neighborhood/MainDoor", {})
     Player.Character.PrimaryPart.CFrame = game:GetService("Workspace").StaticMap.Park.Roundabout.SeatsSpinModel.Visual:FindFirstChildWhichIsA("Part").CFrame + Vector3.new(math.random(1, 20), 10, math.random(-20, -1))
+    Player.Character:WaitForChild("HumanoidRootPart").Anchored = false
     Player.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Landed)
     Player.Character.Humanoid.WalkSpeed = 0
 end
@@ -1462,8 +1526,8 @@ local function autoFarm()
             end
 
         elseif Player.PlayerGui.HintApp.TextLabel.Text:match("You have left the queue") then
-            if workspace.Interiors:FindFirstChild("TileSkipMinigameLobby") then
-                Player.Character.PrimaryPart.CFrame = workspace.Interiors.TileSkipMinigameLobby.JoinZone.Collider.CFrame + Vector3.new(0,-15,0)
+            if workspace.Interiors:FindFirstChild("Winter2023Shop") then
+                Player.Character.PrimaryPart.CFrame = workspace.Interiors.Winter2023Shop.PetRescue.JoinZone.Collider.CFrame + Vector3.new(0,-14,0)
             
             elseif workspace.Interiors:FindFirstChild("ChickatriceMinigame") then
                 Player.Character.PrimaryPart.CFrame = workspace.Interiors.ChickatriceMinigame.Minigame.JoinZone.Collider.CFrame + Vector3.new(0,-14,0)
@@ -1488,7 +1552,7 @@ local function autoFarm()
                     game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("WinterEventAPI/PetRescueTryUsePickaxe"):InvokeServer()
                     task.wait(.5)
                 until Player.PlayerGui.MinigameInGameApp.Body.Left.Container.ValueLabel.Text:match("GAME OVER")
-                task.wait(20)
+                task.wait(30)
                 TeleportMainMap()
 
             elseif Player.PlayerGui.MinigameInGameApp.Body.Middle.Container.TitleLabel.Text:match("CHICKATRICE SAYS") then
@@ -2443,27 +2507,77 @@ Buy:AddTextbox({
     end  
 })
 
--- local pet2 = "winter_2023_christmas_pudding_pup"
--- Buy:AddButton({
---     Name = tostring(inventoryDB.pets[pet2].name.." - "..inventoryDB.pets[pet2].cost.." - "..(inventoryDB.pets[pet2].currency_id or "bucks")),
---     Callback = function()
---         for i = 1, (howmany or 1) do
---             ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("pets", pet2, {})
---             task.wait(.1)
---         end
---     end
--- })
+Buy:AddButton({
+    Name = "winter_2023_fleur_de_ice",
+    Callback = function()
+        for i = 1, (howmany or 1) do
+            ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("pets", "winter_2023_fleur_de_ice", {})
+            task.wait(.1)
+        end
+    end
+})
 
--- local pet1 = "winter_2023_beluga_whale"
--- Buy:AddButton({
---     Name = tostring(inventoryDB.pets[pet1].name.." - "..inventoryDB.pets[pet1].cost.." - "..(inventoryDB.pets[pet1].currency_id or "bucks")),
---     Callback = function()
---         for i = 1, (howmany or 1) do
---             ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("pets", pet1, {})
---             task.wait(.1)
---         end
---     end
--- })
+Buy:AddButton({
+    Name = "eggnog_dog",
+    Callback = function()
+        for i = 1, (howmany or 1) do
+            ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("pets", "winter_2023_eggnog_dog", {})
+            task.wait(.1)
+        end
+    end
+})
+
+Buy:AddButton({
+    Name = "peppermint_penguin",
+    Callback = function()
+        for i = 1, (howmany or 1) do
+            ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("pets", "winter_2023_peppermint_penguin", {})
+            task.wait(.1)
+        end
+    end
+})
+
+Buy:AddButton({
+    Name = "christmas_pudding_pup",
+    Callback = function()
+        for i = 1, (howmany or 1) do
+            ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("pets", "winter_2023_christmas_pudding_pup", {})
+            task.wait(.1)
+        end
+    end
+})
+
+Buy:AddButton({
+    Name = "nutcracker_squirrel",
+    Callback = function()
+        for i = 1, (howmany or 1) do
+            ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("pets", "winter_2023_nutcracker_squirrel", {})
+            task.wait(.1)
+        end
+    end
+})
+
+
+Buy:AddButton({
+    Name = "gingerbread_mouse",
+    Callback = function()
+        for i = 1, (howmany or 1) do
+            ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("pets", "winter_2023_gingerbread_mouse", {})
+            task.wait(.1)
+        end
+    end
+})
+
+Buy:AddButton({
+    Name = "Beluga Whale",
+    Callback = function()
+        for i = 1, (howmany or 1) do
+            ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("pets", "winter_2023_beluga_whale", {})
+            task.wait(.1)
+        end
+    end
+})
+
 
 local egg1 = "urban_2023_egg"
 Buy:AddButton({
