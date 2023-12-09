@@ -1419,7 +1419,11 @@ local function autoFarm()
     TeleportMainMap()
     local function CompletePetAilments()
         if isCollecting then return end
-        if Bypass("ClientData").get("pet_char_wrapper") == nil then return end
+        if Bypass("ClientData").get("pet_char_wrapper") == nil then
+            ReplicatedStorage.API["ToolAPI/Unequip"]:InvokeServer(PetCurrentlyFarming, {["use_sound_delay"] = true})
+            task.wait(1)
+            ReplicatedStorage.API["ToolAPI/Equip"]:InvokeServer(PetCurrentlyFarming, {["use_sound_delay"] = true})
+        end
         if #Bypass("ClientData").get("pet_char_wrapper")["ailments_monitor"]["ailments"] == 0 then
             getGingerbread()
             return 
