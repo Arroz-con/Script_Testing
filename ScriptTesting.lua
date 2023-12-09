@@ -1413,7 +1413,6 @@ local function getGingerbread()
 end
 
 
-
 local function autoFarm()
     if not getgenv().auto_farm then return end
     TeleportMainMap()
@@ -1423,6 +1422,7 @@ local function autoFarm()
             ReplicatedStorage.API["ToolAPI/Unequip"]:InvokeServer(PetCurrentlyFarming, {["use_sound_delay"] = true})
             task.wait(1)
             ReplicatedStorage.API["ToolAPI/Equip"]:InvokeServer(PetCurrentlyFarming, {["use_sound_delay"] = true})
+            return -- return because when pet gets requipped it will call this function anyway
         end
         if #Bypass("ClientData").get("pet_char_wrapper")["ailments_monitor"]["ailments"] == 0 then
             getGingerbread()
