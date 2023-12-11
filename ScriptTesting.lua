@@ -113,6 +113,13 @@ local function FireButton(PassOn)
     end
 end
 
+local function minimizeGui()
+    VI:SendMouseButtonEvent(710, 140, 0, true, game, 1)
+    task.wait()
+    VI:SendMouseButtonEvent(710, 140, 0, false, game, 1)
+end
+
+
 -- ChatConnection = Player.PlayerGui.Chat.Frame.ChatChannelParentFrame["Frame_MessageLogDisplay"].Scroller.DescendantAdded:Connect(function(ChatChild)
 -- 	if ChatChild.Name == "TextButton" then
 -- 		task.wait(1)
@@ -369,6 +376,7 @@ game.Players.LocalPlayer.PlayerGui.QuestIconApp.ImageButton.EventContainer.IsCla
     end
 end)
 
+minimizeGui()
 
 NewClaim()
 task.wait()
