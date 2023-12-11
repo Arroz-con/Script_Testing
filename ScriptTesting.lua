@@ -113,11 +113,12 @@ local function FireButton(PassOn)
     end
 end
 
-local function minimizeGui()
-    VI:SendMouseButtonEvent(710, 140, 0, true, game, 1)
-    task.wait(1)
-    VI:SendMouseButtonEvent(710, 140, 0, false, game, 1)
-end
+-- mouse cant click on script button
+-- local function minimizeGui()
+--     VI:SendMouseButtonEvent(710, 140, 0, true, game, 1)
+--     task.wait(1)
+--     VI:SendMouseButtonEvent(710, 140, 0, false, game, 1)
+-- end
 
 
 -- ChatConnection = Player.PlayerGui.Chat.Frame.ChatChannelParentFrame["Frame_MessageLogDisplay"].Scroller.DescendantAdded:Connect(function(ChatChild)
@@ -1673,7 +1674,7 @@ local function autoFarm()
         task.wait(.1)
     end
     
-    minimizeGui()
+    MainWindow.ClipsDescendants = false
     --setfpscap(SETTINGS.SET_FPS)
 
 end
@@ -2675,7 +2676,6 @@ game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("HousingAP
 
 if SETTINGS.ENABLE_AUTO_FARM then
     if Bed then
-        minimizeGui()
         task.wait(math.random(1, 5))
         FarmToggle:Set(true)
         task.wait(2)
