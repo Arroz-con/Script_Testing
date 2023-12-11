@@ -2675,10 +2675,10 @@ game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("HousingAP
 
 if SETTINGS.ENABLE_AUTO_FARM then
     if Bed then
+        minimizeGui()
         task.wait(math.random(1, 5))
         FarmToggle:Set(true)
         task.wait(2)
-        Minimized = true
     else
         FarmToggle:Set(false)
     end
