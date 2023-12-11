@@ -115,7 +115,7 @@ end
 
 local function minimizeGui()
     VI:SendMouseButtonEvent(710, 140, 0, true, game, 1)
-    task.wait()
+    task.wait(1)
     VI:SendMouseButtonEvent(710, 140, 0, false, game, 1)
 end
 
