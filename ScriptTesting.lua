@@ -1674,7 +1674,7 @@ local function autoFarm()
         task.wait(.1)
     end
     
-    OrionLib:Minimize()
+    OrionLib:MinimizeGUI()
     --setfpscap(SETTINGS.SET_FPS)
 
 end
