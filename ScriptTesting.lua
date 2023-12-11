@@ -1674,7 +1674,7 @@ local function autoFarm()
         task.wait(.1)
     end
     
-    MainWindow.ClipsDescendants = false
+    OrionLib:Minimize()
     --setfpscap(SETTINGS.SET_FPS)
 
 end
