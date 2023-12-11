@@ -90,13 +90,23 @@ Player.PlayerGui:WaitForChild("DialogApp")
 UserGameSettings.GraphicsQualityLevel = 1
 UserGameSettings.MasterVolume = 0
 
+
+local function clickGuiButton(button)
+    task.wait()
+    VI:SendMouseButtonEvent(button.AbsolutePosition.X + 60, button.AbsolutePosition.Y + 50, 0, true, game, 1)
+    task.wait()
+    VI:SendMouseButtonEvent(button.AbsolutePosition.X + 60, button.AbsolutePosition.Y + 50, 0, false, game, 1)
+    task.wait()
+end
+
 local function FireButton(PassOn)
     task.wait() -- gives it time for button
     if not Player.PlayerGui.DialogApp.Dialog.NormalDialog.Buttons.ButtonTemplate then return end
     for i, v in pairs(Player.PlayerGui.DialogApp.Dialog.NormalDialog.Buttons:GetDescendants()) do
         if v.Name == "TextLabel" then
             if v.Text == PassOn then
-                firesignal(v.Parent.Parent.MouseButton1Click)
+                clickGuiButton(v.Parent.Parent)
+                -- firesignal(v.Parent.Parent.MouseButton1Click)
                 break
             end
         end
@@ -114,21 +124,17 @@ end
 --// Main Adopt me Screen (Play! Button)
 NewsAppConnection = Player.PlayerGui.NewsApp:GetPropertyChangedSignal("Enabled"):Connect(function()
     if Player.PlayerGui.NewsApp.Enabled then
-        task.wait()
-        for i, v in getconnections(Player.PlayerGui.NewsApp:FindFirstChild("PlayButton", true).MouseButton1Click) do
-            v:Fire()
-        end
-        -- firesignal(Player.PlayerGui.NewsApp.EnclosingFrame.MainFrame.Contents.PlayButton.MouseButton1Click)
+        local AbsPlay = Player.PlayerGui.NewsApp.EnclosingFrame.MainFrame.Contents.PlayButton
+        clickGuiButton(AbsPlay)
+        --firesignal(Player.PlayerGui.NewsApp.EnclosingFrame.MainFrame.Contents.PlayButton.MouseButton1Click)
         NewsAppConnection:Disconnect()
     end
 end)
 
 if Player.PlayerGui.NewsApp.Enabled then
-    task.wait()
-    for i, v in getconnections(Player.PlayerGui.NewsApp:FindFirstChild("PlayButton", true).MouseButton1Click) do
-        v:Fire()
-    end
-    -- firesignal(Player.PlayerGui.NewsApp.EnclosingFrame.MainFrame.Contents.PlayButton.MouseButton1Click)
+    local AbsPlay = Player.PlayerGui.NewsApp.EnclosingFrame.MainFrame.Contents.PlayButton
+    clickGuiButton(AbsPlay)
+    --firesignal(Player.PlayerGui.NewsApp.EnclosingFrame.MainFrame.Contents.PlayButton.MouseButton1Click)
     NewsAppConnection:Disconnect()
 end
 
@@ -173,7 +179,7 @@ RobuxProductDialogConnection = Player.PlayerGui.DialogApp.Dialog.RobuxProductDia
         for i, v in pairs(Player.PlayerGui.DialogApp.Dialog.RobuxProductDialog.Buttons:GetDescendants()) do
             if v.Name == "TextLabel" then
                 if  v.Text == "No Thanks" then
-                    firesignal(v.Parent.Parent.MouseButton1Click)
+                    clickGuiButton(v.Parent.Parent) -- no thanks button
                     DailyBoolean = false
                     RobuxProductDialogConnection:Disconnect()
                 end
@@ -211,13 +217,15 @@ DailyClaimConnection = Player.PlayerGui.DailyLoginApp:GetPropertyChangedSignal("
             for i, v in pairs(Player.PlayerGui.DailyLoginApp.Frame.Body.Buttons:GetDescendants()) do
                 if v.Name == "TextLabel" then
                     if v.Text == "CLOSE" then
-                        firesignal(v.Parent.Parent.MouseButton1Click)
+                        clickGuiButton(v.Parent.Parent) -- Close button
                         task.wait(1)
                         GrabDailyReward()
                         DailyClaimConnection:Disconnect()
                     elseif v.Text == "CLAIM!" then
-                        firesignal(v.Parent.Parent.MouseButton1Click) --claim button
-                        firesignal(v.Parent.Parent.MouseButton1Click) --close button
+                        clickGuiButton(v.Parent.Parent) -- claim button
+                        clickGuiButton(v.Parent.Parent) -- close button
+                        -- firesignal(v.Parent.Parent.MouseButton1Click) --claim button
+                        -- firesignal(v.Parent.Parent.MouseButton1Click) --close button
                         task.wait(1)
                         GrabDailyReward()
                         DailyClaimConnection:Disconnect()
@@ -237,19 +245,7 @@ CharConn = Char.ChildAdded:Connect(function(HRPChild)
     end
 end)
 
---//This code block below is to close the RGB gift pop-up messages
-local function FireButton(PassOn)
-    task.wait() -- gives it time for button
-    if not Player.PlayerGui.DialogApp.Dialog.NormalDialog.Buttons.ButtonTemplate then return end
-    for i, v in pairs(Player.PlayerGui.DialogApp.Dialog.NormalDialog.Buttons:GetDescendants()) do
-        if v.Name == "TextLabel" then
-            if v.Text == PassOn then
-                firesignal(v.Parent.Parent.MouseButton1Click)
-                break
-            end
-        end
-    end
-end
+
 
 Player.PlayerGui.DialogApp.Dialog.ChildAdded:Connect(function(NormalDialogChild)
     if NormalDialogChild.Name == "NormalDialog" then
@@ -1312,6 +1308,7 @@ end
 local function TeleportPlayGround()
     Player.Character:WaitForChild("HumanoidRootPart").Anchored = true
     SetLocationFunc("MainMap", "Neighborhood/MainDoor", {})
+    game.Workspace.Interiors:WaitForChild(tostring(game.Workspace.Interiors:FindFirstChildWhichIsA("Model")))
     Player.Character.PrimaryPart.CFrame = game:GetService("Workspace").StaticMap.Park.Roundabout.SeatsSpinModel.Visual:FindFirstChildWhichIsA("Part").CFrame + Vector3.new(math.random(1, 20), 10, math.random(-20, -1))
     Player.Character:WaitForChild("HumanoidRootPart").Anchored = false
     Player.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Landed)
@@ -1417,7 +1414,6 @@ local function autoFarm()
     if not getgenv().auto_farm then return end
     TeleportMainMap()
     local function CompletePetAilments()
-        if isCollecting then return end
         if Bypass("ClientData").get("pet_char_wrapper") == nil then
             ReplicatedStorage.API["ToolAPI/Unequip"]:InvokeServer(PetCurrentlyFarming, {["use_sound_delay"] = true})
             task.wait(1)
@@ -1556,8 +1552,8 @@ local function autoFarm()
                     game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("WinterEventAPI/PetRescueTryUsePickaxe"):InvokeServer()
                     task.wait(.5)
                 until Player.PlayerGui.MinigameInGameApp.Body.Left.Container.ValueLabel.Text:match("GAME OVER")
-                task.wait(30)
-                TeleportMainMap()
+                -- task.wait(30)
+                -- TeleportMainMap()
 
             elseif Player.PlayerGui.MinigameInGameApp.Body.Middle.Container.TitleLabel.Text:match("CHICKATRICE SAYS") then
                 task.wait()
@@ -1578,8 +1574,8 @@ local function autoFarm()
                     NormalDialogChild.Info.TextLabel:GetPropertyChangedSignal("Text"):Connect(function()
                         if Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info.TextLabel.Text:match("Pet Rescue is starting soon!") then
                             FireButton("Yes")
-                            TeleportWinterShop()
-                            TeleportPetRescue()
+                            -- TeleportWinterShop()
+                            -- TeleportPetRescue()
                             -- Bypass("RouterClient").get("MinigameAPI/AttemptJoin"):FireServer("pet_rescue", true)
                         elseif Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info.TextLabel.Text:match("Chickatrice Says!") then
                             FireButton("Yes")
@@ -1602,9 +1598,9 @@ local function autoFarm()
             Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info.TextLabel:GetPropertyChangedSignal("Text"):Connect(function()
                 if Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info.TextLabel.Text:match("Pet Rescue is starting soon!") then
                     FireButton("Yes")
-                    TeleportWinterShop()
-                    task.wait(2)
-                    TeleportPetRescue()
+                    -- TeleportWinterShop()
+                    -- task.wait(2)
+                    -- TeleportPetRescue()
                 elseif Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info.TextLabel.Text:match("Chickatrice Says!") then
                     FireButton("Yes")
 
@@ -1631,7 +1627,7 @@ local function autoFarm()
         for i, v in pairs(Player.PlayerGui.MinigameRewardsApp.Body.Button:GetDescendants()) do
             if v.Name == "TextLabel" then
                 if v.Text == "NICE!" then
-                    firesignal(v.Parent.Parent.MouseButton1Click)
+                    clickGuiButton(v.Parent.Parent)
                     break
                 end
             end
@@ -1646,9 +1642,9 @@ local function autoFarm()
             Player.PlayerGui.MinigameRewardsApp.Body.Button.Face:WaitForChild("TextLabel")
             if Player.PlayerGui.MinigameRewardsApp.Body.Button.Face.TextLabel.Text:match("NICE!") then
                 Player.Character.HumanoidRootPart.Anchored = false
-                -- RemoveGameOverButton()
+                RemoveGameOverButton()
                 Player.PlayerGui.MinigameRewardsApp.Body.Visible = false
-                -- TeleportMainMap()
+                TeleportMainMap()
             end
         end
     end)
@@ -2673,6 +2669,8 @@ if SETTINGS.ENABLE_AUTO_FARM then
     if Bed then
         task.wait(math.random(1, 5))
         FarmToggle:Set(true)
+        task.wait(2)
+        Window.Minimized = true
     else
         FarmToggle:Set(false)
     end
