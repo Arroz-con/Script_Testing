@@ -2670,7 +2670,7 @@ if SETTINGS.ENABLE_AUTO_FARM then
         task.wait(math.random(1, 5))
         FarmToggle:Set(true)
         task.wait(2)
-        Window.Minimized = true
+        Minimized = true
     else
         FarmToggle:Set(false)
     end
