@@ -2186,7 +2186,7 @@ end)
 
 -----------          UI  Functions           ------------------
 
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Arroz-con/Orion/main/source')))()
 local Window = OrionLib:MakeWindow({Name = "Adopt me", HidePremium = false, SaveConfig = false, ConfigFolder = "Bakane_Adoptme", IntroText = "Hello World"})
 
 local Farm = Window:MakeTab({
