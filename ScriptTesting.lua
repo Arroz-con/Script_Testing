@@ -376,7 +376,6 @@ game.Players.LocalPlayer.PlayerGui.QuestIconApp.ImageButton.EventContainer.IsCla
     end
 end)
 
-minimizeGui()
 
 NewClaim()
 task.wait()
@@ -1669,11 +1668,12 @@ local function autoFarm()
     CompleteBabyAilments()
     CompletePetAilments()
     task.wait(2)
-    for i=1, 31 do
+    for i=1, 26 do
         game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("WinterEventAPI/AdventCalendarTryTakeReward"):InvokeServer(i)
         task.wait(.1)
     end
     
+    minimizeGui()
     --setfpscap(SETTINGS.SET_FPS)
 
 end
