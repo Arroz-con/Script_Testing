@@ -94,7 +94,7 @@ UserGameSettings.MasterVolume = 0
 local function clickGuiButton(button)
     task.wait()
     VI:SendMouseButtonEvent(button.AbsolutePosition.X + 60, button.AbsolutePosition.Y + 50, 0, true, game, 1)
-    task.wait()
+    task.wait(3)
     VI:SendMouseButtonEvent(button.AbsolutePosition.X + 60, button.AbsolutePosition.Y + 50, 0, false, game, 1)
     task.wait()
 end
