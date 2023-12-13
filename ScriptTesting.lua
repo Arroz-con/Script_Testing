@@ -94,7 +94,7 @@ UserGameSettings.MasterVolume = 0
 local function clickGuiButton(button)
     task.wait()
     VI:SendMouseButtonEvent(button.AbsolutePosition.X + 60, button.AbsolutePosition.Y + 60, 0, true, game, 1)
-    task.wait(5)
+    task.wait()
     VI:SendMouseButtonEvent(button.AbsolutePosition.X + 60, button.AbsolutePosition.Y + 60, 0, false, game, 1)
     task.wait()
 end
@@ -1705,7 +1705,7 @@ local function ClickTradeWindowPopUps()
     for _, v in pairs(Player.PlayerGui.DialogApp.Dialog.NormalDialog.Buttons:GetDescendants()) do
         if v.Name == "TextLabel" then
             if v.Text == "Accept" or v.Text == "Okay" or v.Text == "Next" or v.Text == "I understand" or v.Text == "No" then
-                firesignal(v.Parent.Parent.MouseButton1Click)
+                clickGuiButton(v.Parent.Parent)
                 return
             end
         end
@@ -1714,7 +1714,7 @@ local function ClickTradeWindowPopUps()
     for _, v in pairs(Player.PlayerGui.DialogApp.Dialog.HeaderDialog.Buttons:GetDescendants()) do
         if v.Name == "TextLabel" then
             if v.Text == "Accept" or v.Text == "Okay" or v.Text == "Next" or v.Text == "I understand" then
-                firesignal(v.Parent.Parent.MouseButton1Click)
+                clickGuiButton(v.Parent.Parent)
                 return
             end
         end
