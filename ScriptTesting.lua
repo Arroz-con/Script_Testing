@@ -3779,6 +3779,7 @@ local function autoTradeSemiAuto()
                 pcall(function()
                     ClickTradeWindowPopUps()
                     ReplicatedStorage.API:FindFirstChild("TradeAPI/AcceptNegotiation"):FireServer()
+                    task.wait()
                     ReplicatedStorage.API:FindFirstChild("TradeAPI/ConfirmTrade"):FireServer()
                 end)
             end
@@ -3827,26 +3828,28 @@ local function autoTradeSemiAuto()
     end
     
     local function autoTradeAllPets()
+        local petUniqueTable = {}
         local petCounter = 0
-        local howManyLeft = howManyToTrade
-        local petCount
-        local inventoryLeft
-        while howManyLeft ~= 0 do
+        local isRunning = true
+
+        while isRunning do
             if not getgenv().auto_trade_all_pets then return end
-            if howManyLeft == 0 then return end
+       
             sendTradeRequest()
     
             for _, pet in pairs(require(ReplicatedStorage.ClientModules.Core.ClientData).get_data()[Player.Name].inventory.pets) do
-                if howManyLeft == 0 then break end
+                if pet.id == "practice_dog" then continue end
+                if petUniqueTable[pet.unique] then continue end
+                table.insert(petUniqueTable, pet.unique)
                 ReplicatedStorage.API["TradeAPI/AddItemToOffer"]:FireServer(pet.unique)
                 petCounter += 1
-                howManyLeft -= 1
-                task.wait(.1)
-                if petCounter == 18 then
+                if petCounter >= 18 then
                     break
                 end
+                task.wait(.1)
             end
             clickAcceptNegotiation()
+            task.wait()
             clickAcceptConfirmation()
             petCounter = 0
             task.wait(1)
