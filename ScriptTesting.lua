@@ -1,7 +1,7 @@
 getgenv().SETTINGS = {
     PET_TO_BUY = "halloween_2023_dire_stag", -- add pet or egg to buy when bot has no pets/egg left to level
 
-    FOCUS_FARM_AGE_POTION = false,  -- if true, this will only farm 1 pet an keep aging to get aging potions
+    FOCUS_FARM_AGE_POTION = true,  -- if true, this will only farm 1 pet an keep aging to get aging potions
 
     ENABLE_AUTO_FARM = false,
     SET_FPS = 3,
