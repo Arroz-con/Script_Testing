@@ -3830,9 +3830,8 @@ local function autoTradeSemiAuto()
     local function autoTradeAllPets()
         local petUniqueTable = {}
         local petCounter = 0
-        local isRunning = true
 
-        while isRunning do
+        while true do
             if not getgenv().auto_trade_all_pets then return end
        
             sendTradeRequest()
@@ -3852,6 +3851,7 @@ local function autoTradeSemiAuto()
             task.wait()
             clickAcceptConfirmation()
             petCounter = 0
+            table.clear(petUniqueTable)
             task.wait(1)
         end 
     end
