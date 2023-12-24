@@ -1583,13 +1583,11 @@ local function autoFarm()
                     NormalDialogChild.Info.TextLabel:GetPropertyChangedSignal("Text"):Connect(function()
                         if Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info.TextLabel.Text:match("Pet Rescue is starting soon!") then
                             FireButton("Yes")
-                            -- TeleportWinterShop()
-                            -- TeleportPetRescue()
-                            -- Bypass("RouterClient").get("MinigameAPI/AttemptJoin"):FireServer("pet_rescue", true)
-                        elseif Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info.TextLabel.Text:match("Chickatrice Says!") then
+                        
+                        elseif Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info.TextLabel.Text:match("Santa's Workshop is starting soon!") then
                             FireButton("Yes")
 
-                        elseif Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info.TextLabel.Text:match("Spooky Shuffle") then
+                        elseif Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info.TextLabel.Text:match("Cocoa Chaos is starting soon!") then
                             FireButton("Yes")
 
                         end
@@ -1607,13 +1605,11 @@ local function autoFarm()
             Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info.TextLabel:GetPropertyChangedSignal("Text"):Connect(function()
                 if Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info.TextLabel.Text:match("Pet Rescue is starting soon!") then
                     FireButton("Yes")
-                    -- TeleportWinterShop()
-                    -- task.wait(2)
-                    -- TeleportPetRescue()
-                elseif Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info.TextLabel.Text:match("Chickatrice Says!") then
+                 
+                elseif Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info.TextLabel.Text:match("Santa's Workshop is starting soon!") then
                     FireButton("Yes")
 
-                elseif Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info.TextLabel.Text:match("Spooky Shuffle") then
+                elseif Player.PlayerGui.DialogApp.Dialog.NormalDialog.Info.TextLabel.Text:match("Cocoa Chaos is starting soon!") then
                     FireButton("Yes")
                 end
             end)
